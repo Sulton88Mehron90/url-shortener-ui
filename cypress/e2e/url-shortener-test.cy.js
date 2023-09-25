@@ -70,9 +70,7 @@ describe('URL Shortener', () => {
     cy.get('input[name="title"]').type('Parvin');
     cy.get('form').within(() => {
       cy.get('button').click();
-    });      
-    cy.on('window:alert', (text) => {
-      expect(text).to.contains('Please add both required fields!');
     });
+    cy.get('form p').contains('Please add both required fields!');
   });
 });
