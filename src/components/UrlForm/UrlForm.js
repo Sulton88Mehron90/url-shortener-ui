@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 
-function UrlForm() {
+function UrlForm({ onSubmit }) {
   const [title, setTitle] = useState('');
   const [urlToShorten, setUrlToShorten] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
+    onSubmit(urlToShorten, title);
     clearInputs();
   }
 
