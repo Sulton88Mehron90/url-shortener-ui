@@ -4,12 +4,27 @@ function UrlForm({ onSubmit }) {
   const [title, setTitle] = useState('');
   const [urlToShorten, setUrlToShorten] = useState('');
 
+  // const handleSubmit = e => {
+  //   e.preventDefault();
+  //   console.log("In UrlForm before submit:", title, urlToShorten);
+  //   onSubmit(urlToShorten, title);
+  //   clearInputs();
+  // }  
+
   const handleSubmit = e => {
     e.preventDefault();
+    
+    // Check if either field is empty
+    if (!title.trim() || !urlToShorten.trim()) {
+        alert('Both fields are required!');
+        return;  // Exit the function early if fields are empty
+    }
+
     console.log("In UrlForm before submit:", title, urlToShorten);
     onSubmit(urlToShorten, title);
     clearInputs();
-  }  
+}
+
 
   const clearInputs = () => {
     setTitle('');
