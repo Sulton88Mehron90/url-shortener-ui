@@ -13,7 +13,7 @@ function App () {
     getUrls().then(data => setUrls(data.urls));
   }, []);
 
-  function handleFormSubmit() {
+  function handleFormSubmit(longUrl, title) {
     postUrl(longUrl, title)
       .then(data => {
         setUrls(prevUrls => [...prevUrls, data]);
@@ -23,8 +23,8 @@ function App () {
       .catch(error => {
         console.error("Error:", error.message);
       });
-  }
-  
+}
+
   return (
     <main className="App">
       <header>

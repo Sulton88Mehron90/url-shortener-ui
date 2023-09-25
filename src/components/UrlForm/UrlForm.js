@@ -6,9 +6,10 @@ function UrlForm({ onSubmit }) {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log("In UrlForm before submit:", title, urlToShorten);
     onSubmit(urlToShorten, title);
     clearInputs();
-  }
+  }  
 
   const clearInputs = () => {
     setTitle('');
