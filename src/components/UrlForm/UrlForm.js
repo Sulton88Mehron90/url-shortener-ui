@@ -8,12 +8,11 @@ function UrlForm({ onSubmit }) {
   const handleSubmit = e => {
     e.preventDefault();
     if (!title.trim() || !urlToShorten.trim()) {
-      setErrorMessage('Both fields are required!'); 
+      setErrorMessage('Please add both required fields!'); 
       return;
   } else {
       setErrorMessage('');
   }
-    console.log("In UrlForm before submit:", title, urlToShorten);
     onSubmit(urlToShorten, title);
     clearInputs();
   }  

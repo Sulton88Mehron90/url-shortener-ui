@@ -134,7 +134,7 @@ describe('URL Shortener', () => {
       cy.get('button').click();
     });      
     cy.on('window:alert', (text) => {
-      expect(text).to.contains('Both fields are required!');
+      expect(text).to.contains('Please add both required fields!');
     });
   });
 });

@@ -28,7 +28,6 @@ function App () {
 function handleDelete(id) {
   deleteUrl(id)
     .then(() => {
-      // Filter out the deleted URL and update the state
       setUrls(prevUrls => prevUrls.filter(url => url.id !== id));
     })
     .catch(error => {
