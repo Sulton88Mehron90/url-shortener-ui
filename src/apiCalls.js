@@ -9,10 +9,12 @@ export const postUrl = (longUrl, title) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      long_url: longUrl,
-      title: title
-    })
+    body: JSON.stringify({ long_url: longUrl, title: title })
   })
-  .then(response => response.json());
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to shorten the URL');
+    }
+    return response.json();
+  });
 }

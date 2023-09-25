@@ -6,21 +6,25 @@ import UrlForm from '../UrlForm/UrlForm';
 
 function App () {
   const [urls, setUrls] = useState([]);
+  const [title, setTitle] = useState('');
+  const [longUrl, setLongUrl] = useState('');
 
   useEffect(() => {
     getUrls().then(data => setUrls(data.urls));
   }, []);
 
-  function handleFormSubmit(longUrl, title) {
+  function handleFormSubmit() {
     postUrl(longUrl, title)
       .then(data => {
         setUrls(prevUrls => [...prevUrls, data]);
+        setTitle('');
+        setLongUrl('');
       })
       .catch(error => {
-        console.error("Error:", error);
+        console.error("Error:", error.message);
       });
   }
-
+  
   return (
     <main className="App">
       <header>

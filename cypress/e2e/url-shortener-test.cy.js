@@ -1,35 +1,22 @@
-//1. When a user visits the page, they can view the page title, form and the existing shortened URLs
-
 describe('URL Shortener', () => {
     beforeEach(() => {
       cy.clearCookies();
       cy.clearLocalStorage();
   
-      // Stubbing the GET request
       cy.intercept('GET', 'http://localhost:3001/api/v1/urls', {
         statusCode: 200,
         body: {
-          urls: [
-            // Example data based on what the server might send back
-            {
-              id: 1,
-              long_url: 'https://example.com',
-              short_url: 'http://localhost:3001/useshorturl/1',
-              title: 'Example URL'
-            }
-          ]
+          urls: [{
+            id: 1,
+            long_url: 'https://example.com',
+            short_url: 'http://localhost:3001/useshorturl/1',
+            title: 'Example URL'
+          }]
         }
       });
-      // cy.visit('http://localhost:3000');
   
-      cy.visit('http://localhost:3000').then(() => {
-    console.log('Visited the site');
-  });
-  
+      cy.visit('http://localhost:3000');
     });
-  
-  
-    // 2. When a user fills out the form, the information is reflected in the input field values
   
     it('should display the page title, form and existing URLs on load', () => {
       cy.get('h1').contains('URL Shortener');
@@ -43,29 +30,38 @@ describe('URL Shortener', () => {
       cy.get('input[name="urlToShorten"]').type('https://testurl.com').should('have.value', 'https://testurl.com');
     });
   
-    //3. When a user fills out and submits the form, the new shortened URL is rendered
-  
-  it('should render the new shortened URL after form submission', () => {
-    // Stubbing the POST request
-    cy.intercept('POST', 'http://localhost:3001/api/v1/urls', {
-      statusCode: 201,
-      body: {
-        id: 2,
-        long_url: 'https://testurl.com',
-        short_url: 'http://localhost:3001/useshorturl/2',
-        title: 'Parvin'
-      }
+    it('should render the new shortened URL after form submission', () => {
+      cy.intercept('POST', 'http://localhost:3001/api/v1/urls', {
+        statusCode: 201,
+        body: {
+          id: 2,
+          long_url: 'https://testurl.com',
+          short_url: 'http://localhost:3001/useshorturl/2',
+          title: 'Parvin'
+        }
+      });
+      cy.get('input[name="title"]').type('Parvin');
+      cy.get('input[name="urlToShorten"]').type('https://testurl.com');
+      cy.get('button').click();
+      cy.get('.url').should('have.length', 2);
+      cy.get('.url h3').contains('Parvin');
+      cy.get('.url a').contains('http://localhost:3001/useshorturl/2');
     });
   
-    // Filling out the form and submitting
-    cy.get('input[name="title"]').type('Parvin');
-    cy.get('input[name="urlToShorten"]').type('https://testurl.com');
-    cy.get('button').click();
+    it('should show an error when the server fails to shorten the URL', () => {
+      cy.intercept('POST', 'http://localhost:3001/api/v1/urls', {
+        statusCode: 400,
+        body: { error: 'Failed to shorten the URL' }
+      });
+      // Add steps here to simulate the error scenario and check the expected behavior.
+    });
   
-    // Check that the new URL is rendered
-    cy.get('.url').should('have.length', 2);
-    cy.get('.url h3').contains('Parvin');
-    cy.get('.url a').contains('http://localhost:3001/useshorturl/2');
+    it('should not submit the form if fields are incomplete', () => {
+      cy.get('input[name="title"]').type('Test URL');
+      cy.get('button').click();
+      cy.on('window:alert', (text) => {
+        expect(text).to.contains('Both fields are required!');
+      });
+    });
   });
   
-  })
