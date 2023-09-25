@@ -1,7 +1,7 @@
 describe('URL Shortener', () => {
   beforeEach(() => {
-    // cy.clearCookies();
-    // cy.clearLocalStorage();
+    cy.clearCookies();
+    cy.clearLocalStorage();
 
     cy.intercept('GET', 'http://localhost:3001/api/v1/urls', {
       statusCode: 200,
