@@ -8,6 +8,8 @@ function App () {
   const [urls, setUrls] = useState([]);
   const [title, setTitle] = useState('');
   const [longUrl, setLongUrl] = useState('');
+  const [error, setError] = useState('');
+
 
   useEffect(() => {
     getUrls().then(data => setUrls(data.urls));
@@ -22,6 +24,7 @@ function App () {
       })
       .catch(error => {
         console.error("Error:", error.message);
+        setError(error.message); 
       });
 }
 
@@ -41,6 +44,7 @@ function handleDelete(id) {
         <h1>URL Shortener</h1>
         <UrlForm onSubmit={handleFormSubmit} />
       </header>
+      {error && <p className="error-message">{error}</p>}
       <UrlContainer urls={urls} deleteUrl={handleDelete}/>
     </main>
   );
