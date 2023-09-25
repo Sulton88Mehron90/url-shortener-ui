@@ -54,7 +54,7 @@ describe('URL Shortener', () => {
       statusCode: 400,
       body: { error: 'Failed to shorten the URL' }
     });
-  
+
     cy.get('input[name="title"]').type('Test');
     cy.get('input[name="urlToShorten"]').type('https://testerror.com');
     cy.get('form').within(() => {
@@ -63,7 +63,6 @@ describe('URL Shortener', () => {
 
     cy.get('.error-message').should('contain', 'Failed to shorten the URL');
   });
-  
 
   it('should not submit the form if fields are incomplete', () => {
     cy.get('input[name="title"]').type('Parvin');

@@ -3,19 +3,19 @@ import React, { useState } from 'react';
 function UrlForm({ onSubmit }) {
   const [title, setTitle] = useState('');
   const [urlToShorten, setUrlToShorten] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); 
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
     if (!title.trim() || !urlToShorten.trim()) {
-      setErrorMessage('Please add both required fields!'); 
+      setErrorMessage('Please add both required fields!');
       return;
-  } else {
+    } else {
       setErrorMessage('');
-  }
+    }
     onSubmit(urlToShorten, title);
     clearInputs();
-  }  
+  }
 
   const clearInputs = () => {
     setTitle('');
@@ -38,7 +38,7 @@ function UrlForm({ onSubmit }) {
         value={urlToShorten}
         onChange={e => setUrlToShorten(e.target.value)}
       />
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>} 
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <button onClick={e => handleSubmit(e)}>
         Shorten Please!
       </button>

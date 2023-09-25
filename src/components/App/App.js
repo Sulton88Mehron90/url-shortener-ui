@@ -4,13 +4,13 @@ import { getUrls, postUrl, deleteUrl } from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
-function App () {
+function App() {
   const [urls, setUrls] = useState([]);
   const [error, setError] = useState('');
 
   useEffect(() => {
     getUrls()
-    .then(data => setUrls(data.urls));
+      .then(data => setUrls(data.urls));
   }, []);
 
   function handleFormSubmit(longUrl, title) {
@@ -20,7 +20,7 @@ function App () {
       })
       .catch(error => {
         console.error("Error:", error.message);
-        setError(error.message); 
+        setError(error.message);
       });
   }
 
@@ -41,7 +41,7 @@ function App () {
         <UrlForm onSubmit={handleFormSubmit} />
       </header>
       {error && <p className="error-message">{error}</p>}
-      <UrlContainer urls={urls} deleteUrl={handleDelete}/>
+      <UrlContainer urls={urls} deleteUrl={handleDelete} />
     </main>
   );
 }
