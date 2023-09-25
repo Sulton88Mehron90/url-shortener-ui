@@ -2,7 +2,6 @@ import React from 'react';
 import './UrlContainer.css';
 
 const UrlContainer = props => {
-  console.log('Urls received in UrlContainer:', props.urls);
   
   const urlEls = props.urls.map((url) => {
     return (
