@@ -53,7 +53,6 @@ describe('URL Shortener', () => {
         statusCode: 400,
         body: { error: 'Failed to shorten the URL' }
       });
-      // Add steps here to simulate the error scenario and check the expected behavior.
     });
   
     it('should not submit the form if fields are incomplete', () => {
