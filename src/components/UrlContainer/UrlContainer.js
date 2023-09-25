@@ -3,18 +3,19 @@ import './UrlContainer.css';
 
 const UrlContainer = props => {
   console.log('Urls received in UrlContainer:', props.urls);
+  
   const urlEls = props.urls.map((url) => {
-    
     return (
       <div className="url" key={url.id}>
         <h3>{url.title}</h3>
         <a href={url.short_url} target="blank" rel="noopener noreferrer">{url.short_url}</a>
         <p>{url.long_url}</p>
+        <button onClick={() => props.deleteUrl(url.id)}>Delete</button>  {/* Moved delete button inside the map */}
       </div>
     )
   });  
 
-  console.log("urlEls",urlEls ) // delet it
+  console.log("urlEls", urlEls); // delete it
 
   return (
     <section>

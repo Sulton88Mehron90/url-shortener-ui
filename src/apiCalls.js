@@ -18,3 +18,14 @@ export const postUrl = (longUrl, title) => {
     return response.json();
   });
 }
+
+export const deleteUrl = (id) => {
+  return fetch(`http://localhost:3001/api/v1/urls/${id}`, {
+    method: 'DELETE'
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to delete the URL');
+    }
+  });
+}
