@@ -42,7 +42,9 @@ describe('URL Shortener', () => {
       });
       cy.get('input[name="title"]').type('Parvin');
       cy.get('input[name="urlToShorten"]').type('https://testurl.com');
-      cy.get('button').click();
+      cy.get('form').within(() => {
+        cy.get('button').click();
+      });
       cy.get('.url').should('have.length', 2);
       cy.get('.url h3').contains('Parvin');
       cy.get('.url a').contains('http://localhost:3001/useshorturl/2');
@@ -57,7 +59,9 @@ describe('URL Shortener', () => {
   
     it('should not submit the form if fields are incomplete', () => {
       cy.get('input[name="title"]').type('Test URL');
-      cy.get('button').click();
+      cy.get('form').within(() => {
+        cy.get('button').click();
+      });      
       cy.on('window:alert', (text) => {
         expect(text).to.contains('Both fields are required!');
       });
